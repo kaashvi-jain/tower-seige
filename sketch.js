@@ -6,6 +6,7 @@ const Constraint = Matter.Constraint;
 var engine, world;
 var box1,ground,box2,ball;
 var score = 0;
+var bg;
 
 function setup(){
     var canvas = createCanvas(900,400);
@@ -38,7 +39,7 @@ function setup(){
     box23 = new Box(700,135,30,40);
     box24 = new Box(730,135,30,40);
     box25 = new Box(700,95,30,40);
-
+    getbg();
 
 
 
@@ -50,7 +51,17 @@ function setup(){
 }
 
 function draw(){
-    background(0);
+    if(bg){
+        background(bg);
+    }
+    else{
+        background(0);   
+    }
+    noStroke();
+    textSize(35);
+    fill("red");
+    text("score: "+score,width-300,50);
+    
     Engine.update(engine);
     
     ground.display();
@@ -92,7 +103,37 @@ function draw(){
     
     ball.display();
 
+    box1.score();
+    box2.score();
+    box3.score();
+    box4.score();
+    box5.score();
+    box6.score();
+    box7.score();
+ 
+    box8.score();
+    box9.score();
+    box10.score();
+    box11.score();
+    box12.score();
+    
+    box13.score();
+    box14.score();
+    box15.score(); 
+    
+    box16.score();
+    
+    box17.score();
+    box18.score();
+    box19.score();
+    box20.score();
+    box21.score();
    
+    box22.score();  
+    box23.score();
+    box24.score();
+   
+    box25.score();
 }
 function mouseDragged(){
     Matter.Body.setPosition(ball.body,{x:mouseX,y:mouseY})
@@ -104,5 +145,18 @@ function keyPressed(){
     if(keyCode == 32){
         Matter.Body.setPosition(ball.body,{x:200,y:50});
         slingshot.attached(ball.body)
+    }
+}
+async function getbg(){
+    var response = await fetch("https://worldtimeapi.org/api/timezone/Asia/Tokyo");
+    var responsejson = await response.json();
+    var dt = responsejson.datetime;
+    var hour = dt.slice(11,13);
+    if(hour>=06 && hour<=19){
+        bg = "grey";
+    
+    }
+    else{
+        bg = "skyblue";
     }
 }
